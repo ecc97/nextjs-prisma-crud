@@ -1,0 +1,84 @@
+"use client"
+
+import { createContext, useState, useContext } from "react";
+import { CreateNote, UpdateNote } from "@/interfaces/Note";
+import { Note } from "@prisma/client";
+
+export const NoteContext = createContext<{
+    notes: Note[];
+    loadNotes: () => Promise<void>
+    createNote: (note: CreateNote) => Promise<void>
+    updateNote: (id: number, note: UpdateNote) => Promise<void>
+    deleteNote: (id: number) => Promise<void>
+    selectedNote: Note | null,
+    setSelectedNote: (note: Note | null) => void 
+}>({
+    notes: [],
+    loadNotes: async () => {},
+    createNote: async (note: CreateNote) => {},
+    updateNote: async (id:number, note: UpdateNote) => {},
+    deleteNote: async (id: number) => {},
+    selectedNote: null,
+    setSelectedNote: (note: Note | null) => {},
+})
+
+export const useNotes = () => {
+    const context = useContext(NoteContext)
+    if(!context) {
+        throw new Error("useNotes must be used within a NotesProvider")
+    }
+    return context
+}
+
+export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
+    const [notes, setNotes] = useState<Note[]>([])
+    const [selectedNote, setSelectedNote] = useState<Note | null>(null)
+
+    async function loadNotes() {
+        const response = await fetch(`/api/notes`)
+        const data = await response.json()
+        setNotes(data)
+    }
+
+    async function createNote(note: CreateNote) {
+        const response = await fetch(`/api/notes`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(note),
+        })
+        const newNote = await response.json()
+        setNotes([...notes, newNote])
+    }
+
+    async function updateNote(id: number, note: UpdateNote) {
+        const response = await fetch(`/api/notes/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(note),
+        })
+        const data = await response.json()
+        setNotes(notes.map((note) => (note.id === id ? data : note)))
+        // console.log(data)
+        // const updatedNote = await response.json()
+        // setNotes(notes.map((note) => note.id === id? updatedNote : note))
+        // setSelectedNote(updatedNote)
+    }
+
+    async function deleteNote(id: number) {
+        const response = await fetch(`/api/notes/${id}`, {
+            method: 'DELETE',
+        })
+        const data = await response.json()
+        setNotes(notes.filter((note) => note.id!== id))
+    }
+    
+    return (
+        <NoteContext.Provider value={{ notes, loadNotes, createNote, updateNote, deleteNote, selectedNote, setSelectedNote }}>
+            {children}
+        </NoteContext.Provider>
+    )
+}
