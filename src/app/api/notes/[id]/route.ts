@@ -6,7 +6,7 @@ interface Params {
     params: { id: string }
 }
 
-export async function GET(request: Request, { params }: Params) {
+export async function GET(_request: Request, { params }: Params) {
     try {
         const note = await prisma.note.findFirst({
             where: {
@@ -62,7 +62,7 @@ export async function PUT(request: Request, { params }: Params) {
     }
 }
 
-export async function DELETE(request: Request, { params }: Params) {
+export async function DELETE(_request: Request, { params }: Params) {
     try {
         const deletedNote = await prisma.note.delete({
             where: {

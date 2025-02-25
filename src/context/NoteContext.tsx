@@ -12,15 +12,7 @@ export const NoteContext = createContext<{
     deleteNote: (id: number) => Promise<void>
     selectedNote: Note | null,
     setSelectedNote: (note: Note | null) => void 
-}>({
-    notes: [],
-    loadNotes: async () => {},
-    createNote: async (note: CreateNote) => {},
-    updateNote: async (id:number, note: UpdateNote) => {},
-    deleteNote: async (id: number) => {},
-    selectedNote: null,
-    setSelectedNote: (note: Note | null) => {},
-})
+} | null>(null);
 
 export const useNotes = () => {
     const context = useContext(NoteContext)
@@ -73,6 +65,7 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
             method: 'DELETE',
         })
         const data = await response.json()
+        console.log(data)
         setNotes(notes.filter((note) => note.id!== id))
     }
     

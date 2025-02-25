@@ -19,7 +19,7 @@ const HomePage = () => {
 
   useEffect(() => {
     loadNotes()
-  }, [])
+  }, [loadNotes])
 
   return (
     <div className="flex items-center justify-center h-auto">
