@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Prisma CRUD de Notas
 
-## Getting Started
+Este es un proyecto de CRUD (Crear, Leer, Actualizar, Eliminar) de notas desarrollado con Next.js 14, TypeScript, Prisma y Tailwind CSS.
 
-First, run the development server:
+## 📌 Características
+- 📌 **Next.js 14** como framework principal.
+- 📌 **TypeScript** para tipado estático.
+- 📌 **Prisma** como ORM para la base de datos.
+- 📌 **Tailwind CSS** para estilización rápida y eficiente.
+- 📌 API REST para la gestión de notas.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📂 Estructura del Proyecto
+```
+NEXTJS-PRISMA-CRUD
+│── prisma
+│   ├── migrations/       # Migraciones de la base de datos
+│   ├── dev.db            # Base de datos SQLite (puede variar según configuración)
+│   ├── schema.prisma     # Definición del esquema de Prisma
+│
+│── src
+│   ├── app
+│   │   ├── about/        # Página de información
+│   │   ├── api/notes/    # API REST para las notas
+│   │   │   ├── [id]/route.ts  # Endpoints para notas individuales
+│   │   │   ├── route.ts       # Endpoints para notas
+│   │   ├── fonts/        # Archivos de fuentes
+│   │   ├── globals.css   # Estilos globales
+│   │   ├── layout.tsx    # Layout principal
+│   │   ├── page.tsx      # Página principal
+│
+│   ├── components        # Componentes reutilizables
+│   │   ├── NoteCard.tsx          # Tarjeta de nota
+│   │   ├── NoteForm.tsx          # Formulario de nota
+│   │   ├── NotesContainer.tsx    # Contenedor de notas
+│   │   ├── NotesSkeletonLoading.tsx  # Skeleton loading
+│
+│   ├── context           # Context API para gestión de estado
+│   │   ├── NoteContext.tsx
+│
+│   ├── interfaces        # Interfaces TypeScript
+│   │   ├── Note.ts
+│
+│   ├── libs              # Configuración de Prisma
+│   │   ├── prisma.ts
+│
+│── .env                  # Variables de entorno (DATABASE_URL)
+│── .eslintrc.json        # Configuración de ESLint
+│── .gitignore            # Archivos a ignorar en Git
+│── next.config.mjs       # Configuración de Next.js
+│── package.json          # Dependencias y scripts
+│── postcss.config.mjs    # Configuración de PostCSS
+│── tailwind.config.ts    # Configuración de Tailwind CSS
+│── tsconfig.json         # Configuración de TypeScript
+│── README.md             # Documentación del proyecto
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Instalación y Configuración
+1. **Clona el repositorio:**
+   ```sh
+   git clone https://github.com/tu-usuario/tu-repo.git
+   cd tu-repo
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Instala las dependencias:**
+   ```sh
+   npm install
+   # o con yarn
+   yarn install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. **Configura la base de datos:**
+   - Crea un archivo `.env` en la raíz y agrega:
+     ```env
+     DATABASE_URL="URL_DE_TU_BASE_DE_DATOS"
+     ```
+   - Ejecuta las migraciones:
+     ```sh
+     npx prisma migrate dev --name init
+     ```
 
-## Learn More
+4. **Ejecuta el servidor en desarrollo:**
+   ```sh
+   npm run dev
+   # o con yarn
+   yarn dev
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 Uso de la API
+### 📍 Endpoints disponibles
+- **GET /api/notes** → Obtiene todas las notas
+- **POST /api/notes** → Crea una nueva nota
+- **GET /api/notes/:id** → Obtiene una nota por ID
+- **PUT /api/notes/:id** → Actualiza una nota
+- **DELETE /api/notes/:id** → Elimina una nota
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Estilos
+El proyecto utiliza **Tailwind CSS** para el diseño responsivo y estilización de los componentes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📜 Licencia
+Este proyecto está bajo la licencia MIT.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
