@@ -1,9 +1,5 @@
-"use client"
 
-import NoteForm from "@/components/NoteForm"
-import NoteCard from "@/components/NoteCard"
-import { useNotes } from "@/context/NoteContext"
-import { useEffect } from "react"
+import NotesContainer from "@/components/NotesContainer"
 
 // async function loadNotes() {
 //   const response = await fetch(`http://localhost:3000/api/notes`)
@@ -11,23 +7,13 @@ import { useEffect } from "react"
 //   return data
 // }
 
-const HomePage = () => {
-  // const notes = await loadNotes()
-  // console.log({notes})
-  const {notes, loadNotes} = useNotes()
-  console.log(notes)
-
-  useEffect(() => {
-    loadNotes()
-  }, [loadNotes])
+const HomePage = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 1500));
 
   return (
     <div className="flex items-center justify-center h-auto">
       <div>
-        <NoteForm />
-        {notes.map((note) => (
-          <NoteCard note={note} key={note.id} />
-        ))}
+          <NotesContainer />
       </div>
     </div>
   )

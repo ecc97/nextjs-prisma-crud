@@ -75,3 +75,21 @@ export const NotesProvider = ({ children }: { children: React.ReactNode }) => {
         </NoteContext.Provider>
     )
 }
+
+// export const NoteContext = createContext<{
+//     notes: Note[];
+//     loadNotes: () => Promise<void>
+//     createNote: (note: CreateNote) => Promise<void>
+//     updateNote: (id: number, note: UpdateNote) => Promise<void>
+//     deleteNote: (id: number) => Promise<void>
+//     selectedNote: Note | null,
+//     setSelectedNote: (note: Note | null) => void 
+// }>({
+//     notes: [],
+//     loadNotes: async () => {},
+//     createNote: async () => {},
+//     updateNote: async () => {},
+//     deleteNote: async () => {},
+//     selectedNote: null,
+//     setSelectedNote: () => {}
+// });
