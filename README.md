@@ -57,8 +57,8 @@ NEXTJS-PRISMA-CRUD
 ## 🚀 Instalación y Configuración
 1. **Clona el repositorio:**
    ```sh
-   git clone https://github.com/tu-usuario/tu-repo.git
-   cd tu-repo
+   git clone https://github.com/ecc97/nextjs-prisma-crud
+   cd nextjs-prisma-crud
    ```
 
 2. **Instala las dependencias:**
