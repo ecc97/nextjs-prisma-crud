@@ -4,12 +4,24 @@ import { HiPencil, HiTrash } from "react-icons/hi"
 
 const NoteCard = ({ note }: { note: Note }) => {
     const { deleteNote, setSelectedNote } = useNotes()
+    const isUpdated = new Date(note.updatedAt).getTime() > new Date(note.createdAt).getTime();
+
+    const formatDate = (dateString: Date) => {
+        return new Date(dateString).toLocaleDateString();
+    }
+    
     return (
         <div key={note.id} className="bg-slate-300 p-4 my-2">
             <div>
                 <h1 className="text-2xl font-bold">{note.title}</h1>
                 <p>{note.content}</p>
-                <p>{new Date(note.createdAt).toLocaleDateString()}</p>
+                <p>
+                    {isUpdated ? (
+                        <>{formatDate(note.updatedAt)}</>
+                    ) : (
+                        <>{formatDate(note.createdAt)}</>
+                    )}
+                </p>
             </div>
             <div className="flex gap-x-2">
                 <button className="bg-blue-500 text-white px-4 py-2 rounded-md" onClick={() => { setSelectedNote(note)}}>
